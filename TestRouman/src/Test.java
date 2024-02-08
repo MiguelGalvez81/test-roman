@@ -15,6 +15,7 @@ public class Test {
 		if(number.intValue() > 0 && number.intValue() <= 3000) {
 			
 			String unit = "I";
+			String five = "V";
 			String decimal = "X";
 			String fifty = "L";
 			String centimal = "C";
@@ -37,6 +38,14 @@ public class Test {
 				} else if (i == 3 && chars.length == 3) { 
 					digit = Integer.parseInt(numb.substring(0,1));
 					result = getRomanDigit(centimal,fiveHundred, thousand, digit);	
+				}
+				
+				if(i == 2 && chars.length > 2) { 
+					digit = Integer.parseInt(numb.substring(2,3));
+					result += getRomanDigit(decimal,fifty, centimal, digit);	
+				} else if (i == 2 && chars.length == 2) { 
+					digit = Integer.parseInt(numb.substring(0,1));
+					result = getRomanDigit(decimal,fifty, centimal, digit);	
 				}
 			}
 			
