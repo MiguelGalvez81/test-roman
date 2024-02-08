@@ -3,11 +3,10 @@ public class Test {
 
 	public static void main(String[] args) {
 		
-		System.out.println(getRomanNumber(1599));
+		System.out.println(getRomanNumber(9));
 
 	}
 
-	//number = 2021
 	public static String getRomanNumber (Integer number) {
 		
 		String result = "";
@@ -33,7 +32,7 @@ public class Test {
 					result += repeatChars(thousand, Integer.parseInt(numb.substring(0,1)));
 				
 				if(i == 3 && chars.length > 3) { 
-					digit = Integer.parseInt(numb.substring(1,2));
+					digit = Integer.parseInt(numb.substring(chars.length - 3 , chars.length - 2));
 					result += getRomanDigit(centimal,fiveHundred, thousand, digit);	
 				} else if (i == 3 && chars.length == 3) { 
 					digit = Integer.parseInt(numb.substring(0,1));
@@ -41,17 +40,25 @@ public class Test {
 				}
 				
 				if(i == 2 && chars.length > 2) { 
-					digit = Integer.parseInt(numb.substring(2,3));
+					digit = Integer.parseInt(numb.substring(chars.length - 2 , chars.length - 1));
 					result += getRomanDigit(decimal,fifty, centimal, digit);	
 				} else if (i == 2 && chars.length == 2) { 
 					digit = Integer.parseInt(numb.substring(0,1));
 					result = getRomanDigit(decimal,fifty, centimal, digit);	
 				}
+				
+				if(i == 1 && chars.length > 1) { 
+					digit = Integer.parseInt(numb.substring(chars.length - 1 , chars.length));
+					result += getRomanDigit(unit,five, decimal, digit);	
+				} else if (i == 1 && chars.length == 1) { 
+					digit = Integer.parseInt(numb);
+					result = getRomanDigit(unit, five, decimal, digit);	
+				}
 			}
 			
 		}
 		
-		return result;	
+		return "La representación en número romano del número " + number + " es: " + result;	
 	
 	}
 	
@@ -74,7 +81,7 @@ public class Test {
 		else if(digit.intValue() == 5)
 			result += middle;
 		else if(digit.intValue() > 5 && digit.intValue() < 9)
-			result += middle + repeatChars(begin, digit - 5);
+			result += middle + repeatChars(begin, digit.intValue() - 5);
 		else if(digit.intValue() == 9)
 			result += begin + end;
 		
