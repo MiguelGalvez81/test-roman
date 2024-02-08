@@ -3,7 +3,7 @@ public class Test {
 
 	public static void main(String[] args) {
 		
-		System.out.println(getRomanNumber(1999));
+		System.out.println(getRomanNumber(1599));
 
 	}
 
@@ -21,7 +21,6 @@ public class Test {
 			String fiveHundred = "D";
 			String thousand = "M";
 			
-			
 			String numb = String.valueOf(number.intValue());
 			
 			char [] chars = numb.toCharArray();
@@ -34,28 +33,13 @@ public class Test {
 				
 				if(i == 3 && chars.length > 3) { 
 					digit = Integer.parseInt(numb.substring(1,2));
-					
-					if(digit.intValue() > 0 && digit.intValue() < 4)
-						result += repeatChars(decimal, digit);
-					else if(digit.intValue() == 4)
-						result += repeatChars(centimal, 1);
-					else if(digit.intValue() == 5)
-						result += fiveHundred;
-					else if(digit.intValue() > 5 && digit.intValue() < 9)
-						result += fiveHundred + repeatChars(centimal, digit - 5);
-					else if(digit.intValue() == 9)
-						result += centimal + thousand;
-						
+					result += getRomanDigit(centimal,fiveHundred, thousand, digit);	
 				} else if (i == 3 && chars.length == 3) { 
 					digit = Integer.parseInt(numb.substring(0,1));
-					result = repeatChars(thousand, digit);
+					result = getRomanDigit(centimal,fiveHundred, thousand, digit);	
 				}
 			}
 			
-			
-			
-			
-					
 		}
 		
 		return result;	
@@ -68,6 +52,23 @@ public class Test {
 		for (int i = 0; i < times; i++) {
 			result += character;
 		}
+		return result;
+	}
+	
+	public static String getRomanDigit(String begin, String middle, String end, Integer digit) {
+		String result = "";
+		
+		if(digit.intValue() > 0 && digit.intValue() < 4)
+			result += repeatChars(begin, digit);
+		else if(digit.intValue() == 4)
+			result += repeatChars(begin, 1) + middle;
+		else if(digit.intValue() == 5)
+			result += middle;
+		else if(digit.intValue() > 5 && digit.intValue() < 9)
+			result += middle + repeatChars(begin, digit - 5);
+		else if(digit.intValue() == 9)
+			result += begin + end;
+		
 		return result;
 	}
 	
